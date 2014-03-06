@@ -133,7 +133,7 @@ sharing via Samba (CIFS protocol) in *NIX systems.
 
 %prep
 %setup -q
-cp %{SOURCE1}/caja-share-setup-instructions SETUP
+cp %{SOURCE1} SETUP
 
 %build
 # gksu support disabled. It doesn't work with our gksu-polkit
@@ -155,7 +155,7 @@ cp %{SOURCE1}/caja-share-setup-instructions SETUP
 find %{buildroot} -name *.a -delete
 
 mkdir -p %{buildroot}/%{_sysconfdir}/samba/
-cp %{SOURCE2}/ %{buildroot}/%{_sysconfdir}/samba/
+cp %{SOURCE2} %{buildroot}/%{_sysconfdir}/samba/
 
 # remove needless MateConf stuff
 rm -fr  %{buildroot}%{_datadir}/MateConf
