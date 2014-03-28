@@ -28,9 +28,6 @@ image-converter, sendto and share
 Summary:	Common files for caja-extensions
 Group:		Graphical desktop/Other
 BuildArch:	noarch
-# gksu support disabled. Suggest caja-actions with open
-# as root support.
-Suggests:	caja-actions >= 1.6.2-2
 
 %description common
 Common files for caja extensions such as 
@@ -66,7 +63,6 @@ Provides:	%{name}-gajim  = %{version}-%{release}
 Provides:	%{name}-email = %{version}-%{release}
 Provides:	%{name}-evolution = %{version}-%{release}
 %rename	%{oname}-sendto
-Conflicts:	%{oname}-bluetooth
 
 %description -n caja-sendto
 This application provides integration between caja and mail or IM clients.
