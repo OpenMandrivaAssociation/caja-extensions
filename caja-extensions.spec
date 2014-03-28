@@ -1,48 +1,47 @@
 %define url_ver %(echo %{version}|cut -d. -f1,2)
+%define _disable_ld_no_undefined 1
 %define oname mate-file-manager
 
-Name:           caja-extensions
-Summary:        Set of extensions for caja file manager
-Version:        1.8.0
-Release:        1
-Group:          Graphical desktop/Other
-License:        GPLv2+
-URL:            http://mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/%{url_ver}/%{name}-%{version}.tar.xz
-Source1:        caja-share-setup-instructions
-Source2:        caja-share-smb.conf.example
-
-BuildRequires:  mate-common >= 1.7.0
-BuildRequires:  pkgconfig(libcaja-extension) >= 1.7.0
-BuildRequires:  pkgconfig(mate-desktop-2.0) >= 1.7.0
-BuildRequires:  pkgconfig(dbus-glib-1)
-BuildRequires:  pkgconfig(gtk+-2.0)
-BuildRequires:  pkgconfig(gupnp-1.0)
+Summary:	Set of extensions for caja file manager
+Name:		caja-extensions
+Version:	1.8.0
+Release:	1
+Group:		Graphical desktop/Other
+License:	GPLv2+
+Url:		http://mate-desktop.org
+Source0:	http://pub.mate-desktop.org/releases/%{url_ver}/%{name}-%{version}.tar.xz
+Source1:	caja-share-setup-instructions
+Source2:	caja-share-smb.conf.example
+BuildRequires:	intltool
+BuildRequires:	mate-common
+BuildRequires:	pkgconfig(dbus-glib-1)
+BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(gupnp-1.0)
+BuildRequires:	pkgconfig(libcaja-extension)
+BuildRequires:	pkgconfig(mate-desktop-2.0)
 
 %description
 Extensions for the caja file-browser, open-terminal,
 image-converter, sendto and share
 
 %package common
-Summary:    Common files for caja-extensions
-Group:      Graphical desktop/Other
-BuildArch:  noarch
+Summary:	Common files for caja-extensions
+Group:		Graphical desktop/Other
+BuildArch:	noarch
 # gksu support disabled. Suggest caja-actions with open
 # as root support.
-Suggests:   caja-actions >= 1.6.2-2
+Suggests:	caja-actions >= 1.6.2-2
 
 %description common
 Common files for caja extensions such as 
 open-terminal, image-converter etc.
 
 %package -n caja-image-converter
-Summary:    Caja extension to mass resize images
-Group:	    Graphical desktop/Other
-Requires:   %{name}-common = %{version}-%{release}
-Requires:   imagemagick
-Requires:   %{_lib}caja-extension1 >= 1.7.0
-Provides:   %{oname}-image-converter = %{version}-%{release}
-Obsoletes:  %{oname}-image-converter < 1.7.0
+Summary:	Caja extension to mass resize images
+Group:		Graphical desktop/Other
+Requires:	%{name}-common = %{version}-%{release}
+Requires:	imagemagick
+%rename	%{oname}-image-converter
 
 %description -n caja-image-converter
 Adds a "Resize Images..." menu item to the context menu of all images. This
@@ -50,28 +49,24 @@ opens a dialog where you set the desired image size and file name. A click
 on "Resize" finally resizes the image(s) using ImageMagick's convert tool.
 
 %package -n caja-open-terminal
-Summary:    Caja extension for an open terminal shortcut
-Group:	    Graphical desktop/Other
-Requires:   %{name}-common = %{version}-%{release}
-Requires:   %{_lib}caja-extension1 >= 1.7.0
-Provides:   %{oname}-open-terminal = %{version}-%{release}
-Obsoletes:  %{oname}-open-terminal < 1.7.0
+Summary:	Caja extension for an open terminal shortcut
+Group:		Graphical desktop/Other
+Requires:	%{name}-common = %{version}-%{release}
+%rename	%{oname}-open-terminal
 
 %description -n caja-open-terminal
 This is a proof-of-concept Caja extension which allows you to open
 a terminal in arbitrary local folders.
 
 %package -n caja-sendto
-Summary:    Send files from caja using with mail or IM
-Group:	    Graphical desktop/Other
-Requires:   %{name}-common = %{version}-%{release}
-Requires:   %{_lib}caja-extension1 >= 1.7.0
-Provides:   %{name}-gajim  = %{version}-%{release}
-Provides:   %{name}-email = %{version}-%{release}
-Provides:   %{name}-evolution = %{version}-%{release}
-Provides:   %{oname}-sendto = %{version}-%{release}
-Obsoletes:  %{oname}-sendto < 1.7.0
-Conflicts:  %{oname}-bluetooth
+Summary:	Send files from caja using with mail or IM
+Group:		Graphical desktop/Other
+Requires:	%{name}-common = %{version}-%{release}
+Provides:	%{name}-gajim  = %{version}-%{release}
+Provides:	%{name}-email = %{version}-%{release}
+Provides:	%{name}-evolution = %{version}-%{release}
+%rename	%{oname}-sendto
+Conflicts:	%{oname}-bluetooth
 
 %description -n caja-sendto
 This application provides integration between caja and mail or IM clients.
@@ -80,14 +75,13 @@ a dialog for insert the email or IM account which you want to send
 the file/files.
 
 %package -n caja-sendto-pidgin
-Summary:    Send files from caja to pidgin
-Group:      Graphical desktop/Other
-Requires:   pidgin
-Requires:   %{name}-common = %{version}
-Requires:   caja-sendto = %{version}-%{release}
-Provides:   %{name}-sendto-gaim = %{version}-%{release}
-Provides:   %{oname}-sendto-pidgin = %{version}-%{release}
-Obsoletes:  %{oname}-sendto-pidgin < 1.7.0
+Summary:	Send files from caja to pidgin
+Group:		Graphical desktop/Other
+Requires:	pidgin
+Requires:	%{name}-common = %{version}
+Requires:	caja-sendto = %{version}-%{release}
+Provides:	%{name}-sendto-gaim = %{version}-%{release}
+%rename	%{oname}-sendto-pidgin
 
 %description -n caja-sendto-pidgin
 This application provides integration between caja and pidgin.  It
@@ -95,12 +89,11 @@ adds a Caja context menu component ("Send To...") and features a
 dialog for insert the IM account which you want to send the file/files.
 
 %package -n caja-sendto-upnp
-Summary:    Send files from nautilus via UPNP
-Group:      Graphical desktop/Other
-Requires:   %{name}-common = %{version}
-Requires:   caja-sendto = %{version}-%{release}
-Provides:   %{oname}-sendto-upnp = %{version}-%{release}
-Obsoletes:  %{oname}-sendto-upnp < 1.7.0
+Summary:	Send files from nautilus via UPNP
+Group:		Graphical desktop/Other
+Requires:	%{name}-common = %{version}
+Requires:	caja-sendto = %{version}-%{release}
+%rename	%{oname}-sendto-upnp
 
 %description -n caja-sendto-upnp
 This application provides integration between caja and UPNP.
@@ -108,24 +101,21 @@ It adds a Caja context menu component ("Send To...") and allows sending
 files to UPNP media servers.
 
 %package -n caja-sendto-devel
-Summary:    Development libraries and headers for caja-sendto
-Group:	    Development/C
-Requires:   %{name}-common = %{version}-%{release}
-Requires:   caja-sendto = %{version}-%{release}
-Provides:   %{oname}-sendto-devel = %{version}-%{release}
-Obsoletes:  %{oname}-sendto-devel < 1.7.0
+Summary:	Development libraries and headers for caja-sendto
+Group:		Development/C
+Requires:	%{name}-common = %{version}-%{release}
+Requires:	caja-sendto = %{version}-%{release}
+%rename	%{oname}-sendto-devel
 
 %description -n caja-sendto-devel
 Development libraries and headers for caja-sendto
 
 %package -n caja-share
-Summary:    Easy sharing folder via Samba (CIFS protocol)
-Group:      Networking/File transfer
-Requires:   %{name}-common = %{version}-%{release}
-Requires:   %{_lib}caja-extension1 >= 1.7.0
-Requires:   samba
-Provides:   %{oname}-share = %{version}-%{release}
-Obsoletes:  %{oname}-share < 1.7.0
+Summary:	Easy sharing folder via Samba (CIFS protocol)
+Group:		Networking/File transfer
+Requires:	%{name}-common = %{version}-%{release}
+Requires:	samba
+%rename	%{oname}-share
 
 %description -n caja-share
 Caja extension designed for easier folders 
@@ -133,29 +123,25 @@ sharing via Samba (CIFS protocol) in *NIX systems.
 
 %prep
 %setup -q
-cp %{SOURCE1}/caja-share-setup-instructions SETUP
+cp %{SOURCE1} SETUP
 
 %build
 # gksu support disabled. It doesn't work with our gksu-polkit
 %configure2_5x \
-     --disable-schemas-compile \
-     --with-gtk=2.0            \
-     --enable-image-converter  \
-     --enable-open-terminal    \
-     --enable-sendto           \
-     --enable-share            \
-     --disable-gksu             \
-     --disable-static
+	--enable-image-converter \
+	--enable-open-terminal \
+	--enable-sendto \
+	--enable-share \
+	--disable-gksu \
+	--disable-static
 
 %make
 
 %install
 %makeinstall_std
 
-find %{buildroot} -name *.a -delete
-
 mkdir -p %{buildroot}/%{_sysconfdir}/samba/
-cp %{SOURCE2}/ %{buildroot}/%{_sysconfdir}/samba/
+cp %{SOURCE2} %{buildroot}/%{_sysconfdir}/samba/
 
 # remove needless MateConf stuff
 rm -fr  %{buildroot}%{_datadir}/MateConf
@@ -205,3 +191,4 @@ rm -fr  %{buildroot}%{_datadir}/MateConf
 %config(noreplace) %{_sysconfdir}/samba/caja-share-smb.conf.example
 %{_libdir}/caja/extensions-2.0/libcaja-share.so
 %{_datadir}/caja-extensions/share-dialog.ui
+
