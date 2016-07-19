@@ -4,8 +4,8 @@
 
 Summary:	Set of extensions for caja file manager
 Name:		caja-extensions
-Version:	1.8.0
-Release:	2
+Version:	1.14.0
+Release:	1
 Group:		Graphical desktop/Other
 License:	GPLv2+
 Url:		http://mate-desktop.org
@@ -15,7 +15,7 @@ Source2:	caja-share-smb.conf.example
 BuildRequires:	intltool
 BuildRequires:	mate-common
 BuildRequires:	pkgconfig(dbus-glib-1)
-BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(gupnp-1.0)
 BuildRequires:	pkgconfig(libcaja-extension)
 BuildRequires:	pkgconfig(mate-desktop-2.0)
@@ -117,6 +117,14 @@ Requires:	samba
 Caja extension designed for easier folders 
 sharing via Samba (CIFS protocol) in *NIX systems.
 
+%package -n caja-wallpaper
+Summary:        Wallpaper setting for caja
+Group:          Networking/File transfer
+Requires:       %{name}-common = %{version}-%{release}
+
+%description -n caja-wallpaper
+Caja extension for wallpaper
+
 %prep
 %setup -q
 cp %{SOURCE1} SETUP
@@ -129,7 +137,8 @@ cp %{SOURCE1} SETUP
 	--enable-sendto \
 	--enable-share \
 	--disable-gksu \
-	--disable-static
+	--disable-static \
+	--with-gtk=3.0
 
 %make
 
@@ -152,10 +161,12 @@ rm -fr  %{buildroot}%{_datadir}/MateConf
 %{_libdir}/caja/extensions-2.0/libcaja-image-converter.so
 %{_datadir}/caja-extensions/caja-image-resize.ui
 %{_datadir}/caja-extensions/caja-image-rotate.ui
+%{_datadir}/caja/extensions/libcaja-image-converter.caja-extension
 
 %files -n caja-open-terminal
 %{_libdir}/caja/extensions-2.0/libcaja-open-terminal.so
 %{_datadir}/glib-2.0/schemas/org.mate.caja-open-terminal.gschema.xml
+%{_datadir}/caja/extensions/libcaja-open-terminal.caja-extension
 
 %files -n caja-sendto
 %{_bindir}/caja-sendto
@@ -168,6 +179,7 @@ rm -fr  %{buildroot}%{_datadir}/MateConf
 %{_libdir}/caja/extensions-2.0/libcaja-sendto.so
 %{_datadir}/glib-2.0/schemas/org.mate.Caja.Sendto.gschema.xml
 %{_datadir}/caja-extensions/caja-sendto.ui
+%{_datadir}/caja/extensions/libcaja-sendto.caja-extension
 %{_mandir}/man1/caja-sendto.1.*
 
 %files -n caja-sendto-pidgin
@@ -187,4 +199,9 @@ rm -fr  %{buildroot}%{_datadir}/MateConf
 %config(noreplace) %{_sysconfdir}/samba/caja-share-smb.conf.example
 %{_libdir}/caja/extensions-2.0/libcaja-share.so
 %{_datadir}/caja-extensions/share-dialog.ui
+%{_datadir}/caja/extensions/libcaja-share.caja-extension
+
+%files -n caja-wallpaper
+%{_libdir}/caja/extensions-2.0/libcaja-wallpaper.so
+%{_datadir}/caja/extensions/libcaja-wallpaper.caja-extension
 
