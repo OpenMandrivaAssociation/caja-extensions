@@ -2,9 +2,12 @@
 %define _disable_ld_no_undefined 1
 %define oname mate-file-manager
 
+# gksu support disabled. It doesn't work with our gksu-polkit
+%bcond_with gksu
+
 Summary:	Set of extensions for caja file manager
 Name:		caja-extensions
-Version:	1.14.0
+Version:	1.18.1
 Release:	1
 Group:		Graphical desktop/Other
 License:	GPLv2+
@@ -130,16 +133,15 @@ Caja extension for wallpaper
 cp %{SOURCE1} SETUP
 
 %build
-# gksu support disabled. It doesn't work with our gksu-polkit
-%configure2_5x \
+%configure \
 	--enable-image-converter \
 	--enable-open-terminal \
 	--enable-sendto \
 	--enable-share \
+%if %{without gksu}
 	--disable-gksu \
-	--disable-static \
-	--with-gtk=3.0
-
+%endif
+	%{nil}
 %make
 
 %install
@@ -148,9 +150,7 @@ cp %{SOURCE1} SETUP
 mkdir -p %{buildroot}/%{_sysconfdir}/samba/
 cp %{SOURCE2} %{buildroot}/%{_sysconfdir}/samba/
 
-# remove needless MateConf stuff
-rm -fr  %{buildroot}%{_datadir}/MateConf
-
+# locales
 %find_lang %{name} --with-gnome --all-name
 
 %files common -f %{name}.lang
@@ -177,10 +177,16 @@ rm -fr  %{buildroot}%{_datadir}/MateConf
 %{_libdir}/caja-sendto/plugins/libnstgajim.so
 %{_libdir}/caja-sendto/plugins/libnstremovable_devices.so
 %{_libdir}/caja/extensions-2.0/libcaja-sendto.so
+%{_libdir}/caja/extensions-2.0/libcaja-xattr-tags.so
 %{_datadir}/glib-2.0/schemas/org.mate.Caja.Sendto.gschema.xml
 %{_datadir}/caja-extensions/caja-sendto.ui
 %{_datadir}/caja/extensions/libcaja-sendto.caja-extension
+%{_datadir}/caja/extensions/libcaja-xattr-tags.caja-extension
 %{_mandir}/man1/caja-sendto.1.*
+%if %{with gksu}
+%{_libdir}/lib64/caja/extensions-2.0/libcaja-gksu.so
+%{_datadir}/caja/extensions/libcaja-gksu.caja-extension
+%endif
 
 %files -n caja-sendto-pidgin
 %{_libdir}/caja-sendto/plugins/libnstpidgin.so
