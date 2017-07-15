@@ -256,16 +256,14 @@ cp %{SOURCE1} SETUP
 %configure \
 	--disable-schemas-compile \
 	--enable-image-converter \
-%if %{with gksu}
-	--enable-gksu \
-%else
-	--disable-gksu \
-%endif
 	--enable-gtk-doc-html \
 	--enable-open-terminal \
 	--enable-sendto \
 	--enable-share \
 	--enable-wallpaper \
+%if %{without gksu}
+	--disable-gksu \
+%endif
 	--with-sendto-plugins=all \
 	%{nil}
 %make
