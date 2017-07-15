@@ -139,8 +139,6 @@ the file/files.
 %{_datadir}/glib-2.0/schemas/org.mate.Caja.Sendto.gschema.xml
 %{_datadir}/caja-extensions/caja-sendto.ui
 %{_datadir}/caja/extensions/libcaja-sendto.caja-extension
-%dir %{_datadir}/gtk-doc/html/caja-sendto
-%{_datadir}/gtk-doc/html/caja-sendto/*
 %{_mandir}/man1/caja-sendto.1*
 
 #---------------------------------------------------------------------------
@@ -192,11 +190,11 @@ Requires:	caja-sendto = %{version}-%{release}
 Development libraries and headers for caja-sendto
 
 %files -n caja-sendto-devel
-%doc %{_datadir}/gtk-doc/html/caja-sendto/
 %dir %{_includedir}/caja-sendto
 %{_includedir}/caja-sendto/caja-sendto-plugin.h
 %{_libdir}/pkgconfig/caja-sendto.pc
 %dir %{_datadir}/gtk-doc/html/caja-sendto
+%{_datadir}/gtk-doc/html/caja-sendto/*
 
 #---------------------------------------------------------------------------
 
