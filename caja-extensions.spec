@@ -192,6 +192,7 @@ Requires:	caja-sendto = %{version}-%{release}
 Development libraries and headers for caja-sendto
 
 %files -n caja-sendto-devel
+%doc %{_datadir}/gtk-doc/html/caja-sendto/
 %dir %{_includedir}/caja-sendto
 %{_includedir}/caja-sendto/caja-sendto-plugin.h
 %{_libdir}/pkgconfig/caja-sendto.pc
@@ -263,7 +264,7 @@ cp %{SOURCE1} SETUP
 	--enable-open-terminal \
 	--enable-sendto \
 	--enable-share \
-%if %{without gksu}
+%if %{with gksu}
 	--enable-gksu \
 %endif
 	--enable-wallpaper \
