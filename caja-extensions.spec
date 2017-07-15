@@ -1,5 +1,4 @@
 %define url_ver %(echo %{version}|cut -d. -f1,2)
-#% define _disable_ld_no_undefined 1
 %define oname mate-file-manager
 
 # gksu support disabled. It doesn't work with our gksu-polkit
@@ -257,13 +256,15 @@ cp %{SOURCE1} SETUP
 %configure \
 	--disable-schemas-compile \
 	--enable-image-converter \
+%if %{with gksu}
+	--enable-gksu \
+%else
+	--disable-gksu \
+%endif
 	--enable-gtk-doc-html \
 	--enable-open-terminal \
 	--enable-sendto \
 	--enable-share \
-%if %{with gksu}
-	--enable-gksu \
-%endif
 	--enable-wallpaper \
 	--with-sendto-plugins=all \
 	%{nil}
