@@ -197,7 +197,6 @@ Development libraries and headers for caja-sendto
 %{_includedir}/caja-sendto/caja-sendto-plugin.h
 %{_libdir}/pkgconfig/caja-sendto.pc
 %dir %{_datadir}/gtk-doc/html/caja-sendto
-%{_datadir}/gtk-doc/html/caja-sendto/*
 
 #---------------------------------------------------------------------------
 
