@@ -7,7 +7,7 @@
 Summary:	Set of extensions for caja file manager
 Name:		caja-extensions
 Version:	1.18.1
-Release:	1
+Release:	2
 Group:		Graphical desktop/Other
 License:	GPLv2+
 Url:		https://mate-desktop.org
@@ -277,4 +277,3 @@ install -pm 0644 %{SOURCE2} %{buildroot}/%{_sysconfdir}/samba/
 
 # locales
 %find_lang %{name} --with-gnome --all-name
-
