@@ -6,8 +6,8 @@
 
 Summary:	Set of extensions for caja file manager
 Name:		caja-extensions
-Version:	1.18.1
-Release:	2
+Version:	1.18.2
+Release:	1
 Group:		Graphical desktop/Other
 License:	GPLv2+
 Url:		https://mate-desktop.org
