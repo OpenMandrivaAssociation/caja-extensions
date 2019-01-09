@@ -6,7 +6,7 @@
 
 Summary:	Set of extensions for caja file manager
 Name:		caja-extensions
-Version:	1.20.0
+Version:	1.20.2
 Release:	1
 Group:		Graphical desktop/Other
 License:	GPLv2+
@@ -208,7 +208,7 @@ Recommends:	gvfs-mtp
 %rename		%{oname}-share
 
 %description -n caja-share
-Caja extension designed for easier folders 
+Caja extension designed for easier folders
 sharing via Samba (CIFS protocol) in *NIX systems.
 
 %files -n caja-share
@@ -251,6 +251,7 @@ Caja xattr-tags extension, allows to quickly set xattr-tags.
 %prep
 %setup -q
 cp %{SOURCE1} SETUP
+%autopatch -p1
 
 %build
 %configure \
@@ -266,10 +267,10 @@ cp %{SOURCE1} SETUP
 %endif
 	--with-sendto-plugins=all \
 	%{nil}
-%make
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 
 # samba configuration for caja-share
 install -dm 0755 %{buildroot}/%{_sysconfdir}/samba/
