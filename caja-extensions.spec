@@ -6,7 +6,7 @@
 
 Summary:	Set of extensions for caja file manager
 Name:		caja-extensions
-Version:	1.20.2
+Version:	1.22.0
 Release:	1
 Group:		Graphical desktop/Other
 License:	GPLv2+
