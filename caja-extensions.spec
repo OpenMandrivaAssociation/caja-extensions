@@ -24,7 +24,7 @@ BuildRequires:	pkgconfig(gthread-2.0)
 BuildRequires:	pkgconfig(gmodule-2.0)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(gobject-2.0)
-BuildRequires:	pkgconfig(gupnp-1.0)
+BuildRequires:	pkgconfig(gupnp-1.2)
 BuildRequires:	pkgconfig(libcaja-extension)
 BuildRequires:	pkgconfig(mate-desktop-2.0)
 
@@ -252,6 +252,12 @@ Caja xattr-tags extension, allows to quickly set xattr-tags.
 %setup -q
 cp %{SOURCE1} SETUP
 %autopatch -p1
+
+# temporaty fix because we already pacakged gupnp v1.2
+sed -i -e "s|gupnp-1.0|gupnp-1.2|g" configure.ac
+aclocal -I m4
+automake -a
+autoconf
 
 %build
 %configure \
