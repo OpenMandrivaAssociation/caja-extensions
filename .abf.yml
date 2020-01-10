@@ -1,7 +1,2 @@
-removed_sources:
-  caja-extensions-1.14.0.tar.xz: f6861379fd3ae72eae1394eb2f70f3db65cc85c7
-  caja-extensions-1.18.1.tar.xz: d48c112c597d0b460a380585a61094868698ff47
-  caja-extensions-1.20.0.tar.xz: 247cf6a6213faba3d4deda4124ebffaa2989848a
-  caja-extensions-1.20.2.tar.xz: 497ceb4258799ab1b3d09a40202ab7c69f46358c
 sources:
-  caja-extensions-1.22.0.tar.xz: 644cb73038d4a3b989788df093096baa6a2b1c6f
+  caja-extensions-1.22.1.tar.xz: 71078befdc4cce8659f47cd71e6966c5baa4fa84
