@@ -137,7 +137,7 @@ the file/files.
 %{_libdir}/caja-sendto/plugins/libnstgajim.so
 %{_libdir}/caja/extensions-2.0/libcaja-sendto.so
 %{_datadir}/glib-2.0/schemas/org.mate.Caja.Sendto.gschema.xml
-%{_datadir}/caja-extensions/caja-sendto.ui
+#{_datadir}/caja-extensions/caja-sendto.ui
 %{_datadir}/caja/extensions/libcaja-sendto.caja-extension
 %{_mandir}/man1/caja-sendto.1*
 
