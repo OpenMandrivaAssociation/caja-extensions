@@ -17,6 +17,7 @@ Source2:	caja-share-smb.conf.example
 
 BuildRequires:	intltool
 BuildRequires:	mate-common
+BuildRequires:	libxml2-utils
 BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(gio-2.0)
 BuildRequires:	pkgconfig(glib-2.0)
