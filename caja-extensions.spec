@@ -15,6 +15,7 @@ Source0:	https://pub.mate-desktop.org/releases/%{url_ver}/%{name}-%{version}.tar
 Source1:	caja-share-setup-instructions
 Source2:	caja-share-smb.conf.example
 
+BuildRequires:  autoconf-archive
 BuildRequires:  gtk-doc	
 BuildRequires:  pkgconfig(gtk-doc)
 BuildRequires:	intltool
