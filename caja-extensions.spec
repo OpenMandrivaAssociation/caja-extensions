@@ -2,7 +2,7 @@
 %define oname mate-file-manager
 
 # gksu support disabled. It doesn't work with our gksu-polkit
-%bcond_with gksu
+%bcond_without gksu
 
 Summary:	Set of extensions for caja file manager
 Name:		caja-extensions
@@ -92,7 +92,7 @@ on "Resize" finally resizes the image(s) using ImageMagick's convert tool.
 
 %files -n caja-image-converter
 %{_libdir}/caja/extensions-2.0/libcaja-image-converter.so
-%{_datadir}/caja-extensions/caja-image-resize.ui
+#{_datadir}/caja-extensions/caja-image-resize.ui
 %{_datadir}/caja-extensions/caja-image-rotate.ui
 %{_datadir}/caja/extensions/libcaja-image-converter.caja-extension
 
