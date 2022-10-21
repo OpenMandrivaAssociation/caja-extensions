@@ -2,7 +2,8 @@
 %define oname mate-file-manager
 
 # gksu support disabled. It doesn't work with our gksu-polkit
-%bcond_without gksu
+# and beesu has been abandoned
+%bcond_with gksu
 
 Summary:	Set of extensions for caja file manager
 Name:		caja-extensions
