@@ -258,8 +258,8 @@ Caja xattr-tags extension, allows to quickly set xattr-tags.
 cp %{SOURCE1} SETUP
 %autopatch -p1
 
-# temporaty fix because we already pacakged gupnp v1.2
-sed -i -e "s|gupnp-1.0|gupnp-1.2|g" configure.ac
+# temporaty fix because we already pacakged gupnp v1.6
+sed -i -e "s|gupnp-1.0|gupnp-1.6|g" configure.ac
 aclocal -I m4
 automake -a
 autoconf
