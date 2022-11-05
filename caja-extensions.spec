@@ -29,7 +29,7 @@ BuildRequires:	pkgconfig(gthread-2.0)
 BuildRequires:	pkgconfig(gmodule-2.0)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(gobject-2.0)
-BuildRequires:	pkgconfig(gupnp-1.2)
+BuildRequires:	pkgconfig(gupnp-1.6)
 BuildRequires:	pkgconfig(libcaja-extension)
 BuildRequires:	pkgconfig(mate-desktop-2.0)
 
