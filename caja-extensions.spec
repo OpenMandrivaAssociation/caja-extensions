@@ -16,6 +16,7 @@ Source0:	https://pub.mate-desktop.org/releases/%{url_ver}/%{name}-%{version}.tar
 Source1:	caja-share-setup-instructions
 Source2:	caja-share-smb.conf.example
 # (upstream) incompatilbe with gupnp 1.6
+# https://github.com/mate-desktop/caja-extensions/issues/110
 Patch0:		caja-extensions-1.26.1-disable_gupnp.patch
 
 BuildRequires:  autoconf-archive
