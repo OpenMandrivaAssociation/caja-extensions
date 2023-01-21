@@ -1,0 +1,33 @@
+From d390cb9d6db7ffd97573ec7f0f90f2ac56d3c9a7 Mon Sep 17 00:00:00 2001
+From: raveit65 <mate@raveit.de>
+Date: Wed, 23 Nov 2022 21:38:26 +0100
+Subject: [PATCH] build without gupnp
+
+---
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index c8fb513..bdb4575 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -119,7 +119,7 @@ if test "x$enable_sendto" = "xyes"; then
+         GTHREAD_REQUIRED=2.6.0
+         DBUS_REQUIRED=1.0
+         DBUS_GLIB_REQUIRED=0.60
+-        GUPNP_REQUIRED=0.13
++#        GUPNP_REQUIRED=0.13
+         PKG_CHECK_MODULES(SENDTO,
+                 glib-2.0    >= $GLIB_REQUIRED
+                 gthread-2.0 >= $GTHREAD_REQUIRED
+@@ -130,7 +130,7 @@ if test "x$enable_sendto" = "xyes"; then
+         AC_SUBST(SENDTO_LIBS)
+ 
+     # The full list of plugins
+-    allowed_sendto_plugins="emailclient gajim caja-burn pidgin removable-devices upnp"
++    allowed_sendto_plugins="emailclient gajim caja-burn pidgin removable-devices"
+ 
+     sendto_plugin_error_or_ignore()
+     {
+-- 
+2.38.1
