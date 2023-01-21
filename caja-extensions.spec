@@ -4,6 +4,8 @@
 # gksu support disabled. It doesn't work with our gksu-polkit
 # and beesu has been abandoned
 %bcond_with gksu
+#  incompatilbe with gupnp 1.6
+%bcond_with upnp
 
 Summary:	Set of extensions for caja file manager
 Name:		caja-extensions
@@ -15,9 +17,11 @@ Url:		https://mate-desktop.org
 Source0:	https://pub.mate-desktop.org/releases/%{url_ver}/%{name}-%{version}.tar.xz
 Source1:	caja-share-setup-instructions
 Source2:	caja-share-smb.conf.example
-# (upstream) incompatilbe with gupnp 1.6
+# (upstream)
 # https://github.com/mate-desktop/caja-extensions/issues/110
+%if !%{with upnp}
 Patch0:		caja-extensions-1.26.1-disable_gupnp.patch
+%endif
 
 BuildRequires:  autoconf-archive
 BuildRequires:  gtk-doc	
@@ -32,7 +36,9 @@ BuildRequires:	pkgconfig(gthread-2.0)
 BuildRequires:	pkgconfig(gmodule-2.0)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(gobject-2.0)
+%if %{with upnp}
 BuildRequires:	pkgconfig(gupnp-1.6)
+%endif
 BuildRequires:	pkgconfig(libcaja-extension)
 BuildRequires:	pkgconfig(mate-desktop-2.0)
 
@@ -169,6 +175,7 @@ dialog for insert the IM account which you want to send the file/files.
 
 #---------------------------------------------------------------------------
 
+%if %{with upnp}
 %package -n caja-sendto-upnp
 Summary:	Caja extension to send files from nautilus via UPNP
 Group:		Graphical desktop/Other
@@ -183,6 +190,7 @@ files to UPNP media servers.
 
 %files -n caja-sendto-upnp
 %{_libdir}/caja-sendto/plugins/libnstupnp.so
+%endif
 
 #---------------------------------------------------------------------------
 
@@ -257,17 +265,17 @@ Caja xattr-tags extension, allows to quickly set xattr-tags.
 #---------------------------------------------------------------------------
 
 %prep
-%setup -q
+%autosetup -p1
 cp %{SOURCE1} SETUP
-%autopatch -p1
 
 # temporaty fix because we already pacakged gupnp v1.6
 sed -i -e "s|gupnp-1.0|gupnp-1.6|g" configure.ac
-aclocal -I m4
-automake -a
-autoconf
+#aclocal -I m4
+#automake -a
+#autoconf
 
 %build
+%config_update
 %configure \
 	--disable-schemas-compile \
 	--enable-image-converter \
