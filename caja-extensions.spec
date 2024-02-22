@@ -1,31 +1,23 @@
-%define url_ver %(echo %{version}|cut -d. -f1,2)
+%define mate_ver	%(echo %{version}|cut -d. -f1,2)
 %define oname mate-file-manager
 
 # gksu support disabled. It doesn't work with our gksu-polkit
 # and beesu has been abandoned
 %bcond_with gksu
-#  incompatilbe with gupnp 1.6
-%bcond_with upnp
 
 Summary:	Set of extensions for caja file manager
 Name:		caja-extensions
-Version:	1.26.1
-Release:	2
+Version:	1.28.0
+Release:	1
 Group:		Graphical desktop/Other
 License:	GPLv2+
 Url:		https://mate-desktop.org
-Source0:	https://pub.mate-desktop.org/releases/%{url_ver}/%{name}-%{version}.tar.xz
+Source0:	https://pub.mate-desktop.org/releases/%{mate_ver}/%{name}-%{version}.tar.xz
 Source1:	caja-share-setup-instructions
 Source2:	caja-share-smb.conf.example
-# (upstream)
-# https://github.com/mate-desktop/caja-extensions/issues/110
-%if !%{with upnp}
-Patch0:		caja-extensions-1.26.1-disable_gupnp.patch
-%endif
 
 BuildRequires:  autoconf-archive
 BuildRequires:  gtk-doc	
-BuildRequires:  pkgconfig(gtk-doc)
 BuildRequires:	intltool
 BuildRequires:	mate-common
 BuildRequires:	libxml2-utils
@@ -34,11 +26,11 @@ BuildRequires:	pkgconfig(gio-2.0)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gthread-2.0)
 BuildRequires:	pkgconfig(gmodule-2.0)
+BuildRequires:	pkgconfig(gstreamer-1.0)
 BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gtk-doc)
 BuildRequires:	pkgconfig(gobject-2.0)
-%if %{with upnp}
 BuildRequires:	pkgconfig(gupnp-1.6)
-%endif
 BuildRequires:	pkgconfig(libcaja-extension)
 BuildRequires:	pkgconfig(mate-desktop-2.0)
 
@@ -67,6 +59,24 @@ sendto, sendto-pidgin, sendto-upnp, share, wallpaper.
 %files common -f %{name}.lang
 %doc AUTHORS README SETUP
 %dir %{_datadir}/caja-extensions
+
+#---------------------------------------------------------------------------
+
+%package -n caja-av
+Summary:	Caja extension to show audio and video properties
+Group:		Graphical desktop/Other
+Requires:	%{name}-common = %{version}-%{release}
+Requires:	imagemagick
+%rename		caja-audio-video-properties
+%rename		%{oname}-av
+%rename		%{oname}-audio-video-properties
+
+%description -n caja-av
+Adds a "Audio/Video Property" tab to propety window of all media files.
+
+%files -n caja-av
+%{_libdir}/caja/extensions-2.0/libcaja-av.so
+%{_datadir}/caja/extensions/libcaja-av.caja-extension
 
 #---------------------------------------------------------------------------
 
@@ -175,7 +185,6 @@ dialog for insert the IM account which you want to send the file/files.
 
 #---------------------------------------------------------------------------
 
-%if %{with upnp}
 %package -n caja-sendto-upnp
 Summary:	Caja extension to send files from nautilus via UPNP
 Group:		Graphical desktop/Other
@@ -190,7 +199,6 @@ files to UPNP media servers.
 
 %files -n caja-sendto-upnp
 %{_libdir}/caja-sendto/plugins/libnstupnp.so
-%endif
 
 #---------------------------------------------------------------------------
 
@@ -268,12 +276,6 @@ Caja xattr-tags extension, allows to quickly set xattr-tags.
 %autosetup -p1
 cp %{SOURCE1} SETUP
 
-# temporaty fix because we already pacakged gupnp v1.6
-sed -i -e "s|gupnp-1.0|gupnp-1.6|g" configure.ac
-#aclocal -I m4
-#automake -a
-#autoconf
-
 %build
 %config_update
 %configure \
@@ -284,9 +286,7 @@ sed -i -e "s|gupnp-1.0|gupnp-1.6|g" configure.ac
 	--enable-sendto \
 	--enable-share \
 	--enable-wallpaper \
-%if %{without gksu}
-	--disable-gksu \
-%endif
+	--%{?with_gksu:en}%{!?with_gksu:dis}able-gksu \
 	--with-sendto-plugins=all \
 	%{nil}
 %make_build
@@ -300,3 +300,4 @@ install -pm 0644 %{SOURCE2} %{buildroot}/%{_sysconfdir}/samba/
 
 # locales
 %find_lang %{name} --with-gnome --all-name
+
